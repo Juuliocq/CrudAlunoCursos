@@ -48,13 +48,18 @@ public class AdicionarAluno extends javax.swing.JFrame {
         });
 
         addAlunoCancelaBtn.setText("Cancelar");
+        addAlunoCancelaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAlunoCancelaBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(addNomeAlunolbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -62,8 +67,8 @@ public class AdicionarAluno extends javax.swing.JFrame {
                         .addComponent(addAlunoConfirmaBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addAlunoCancelaBtn))
-                    .addComponent(addNomeAlunoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(addNomeAlunoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,7 +84,7 @@ public class AdicionarAluno extends javax.swing.JFrame {
                 .addGap(96, 96, 96))
         );
 
-        setSize(new java.awt.Dimension(410, 107));
+        setSize(new java.awt.Dimension(386, 107));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -87,16 +92,30 @@ public class AdicionarAluno extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String nome = addNomeAlunoTxt.getText();
+        
+        if(nome != null && !nome.equals("")){
+            
         AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         boolean sucesso = alunoDAO.adicionaAluno(nome);
 
         if (sucesso == true) {
             JOptionPane.showMessageDialog(null, "O aluno " + nome + " foi cadastrado com sucesso!");
+            
             dispose();
+            
         } else {
             JOptionPane.showMessageDialog(null, "houve um erro ao cadastrar o aluno " + nome);
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "O nome está vazio! Insira um nome válido.");
+        }
     }//GEN-LAST:event_addAlunoConfirmaBtnActionPerformed
+
+    private void addAlunoCancelaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlunoCancelaBtnActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_addAlunoCancelaBtnActionPerformed
 
     /**
      * @param args the command line arguments

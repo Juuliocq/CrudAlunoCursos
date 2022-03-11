@@ -9,16 +9,22 @@ package com.julio.crudalunoscursos.model;
  * @author julio
  */
 public class Curso {
-    
+
     private int codigo;
-    private String nome;
+    private String descricao;
     private String ementa;
 
-    public Curso() {}
+    public Curso() {
+    }
 
-    public Curso(int codigo, String nome, String ementa) {
+    public Curso(String descricao, String ementa) {
+        this.descricao = descricao;
+        this.ementa = ementa;
+    }
+
+    public Curso(int codigo, String descricao, String ementa) {
         this.codigo = codigo;
-        this.nome = nome;
+        this.descricao = descricao;
         this.ementa = ementa;
     }
 
@@ -30,12 +36,12 @@ public class Curso {
         this.codigo = codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getEmenta() {
@@ -45,6 +51,5 @@ public class Curso {
     public void setEmenta(String ementa) {
         this.ementa = ementa;
     }
-    
-    
+
 }

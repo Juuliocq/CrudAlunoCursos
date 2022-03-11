@@ -46,6 +46,11 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         });
 
         addCursoBtn.setText("Adicionar Curso");
+        addCursoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCursoBtnActionPerformed(evt);
+            }
+        });
 
         verAlunoBtn.setText("Ver Alunos");
 
@@ -95,6 +100,13 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         addAluno.setVisible(rootPaneCheckingEnabled);
         
     }//GEN-LAST:event_addAlunoBtnActionPerformed
+
+    private void addCursoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCursoBtnActionPerformed
+        // TODO add your handling code here:
+        AdicionarCurso adicionarCurso = new AdicionarCurso();
+        
+        adicionarCurso.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_addCursoBtnActionPerformed
 
     /**
      * @param args the command line arguments
