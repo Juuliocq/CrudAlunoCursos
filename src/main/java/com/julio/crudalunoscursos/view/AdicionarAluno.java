@@ -6,6 +6,7 @@ package com.julio.crudalunoscursos.view;
 
 import com.julio.crudalunoscursos.dao.AlunoDAO;
 import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,7 +94,9 @@ public class AdicionarAluno extends javax.swing.JFrame {
 
         String nome = addNomeAlunoTxt.getText();
         
-        if(nome != null && !nome.equals("")){
+        boolean eValido = Validacao.validaSeEstaVazio(nome);
+        
+        if(eValido == true){
             
         AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         boolean sucesso = alunoDAO.adicionaAluno(nome);

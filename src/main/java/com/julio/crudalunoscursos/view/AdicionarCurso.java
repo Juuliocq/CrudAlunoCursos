@@ -4,9 +4,9 @@
  */
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.AlunoDAO;
 import com.julio.crudalunoscursos.dao.CursoDAO;
 import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -70,21 +70,20 @@ public class AdicionarCurso extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(addDescricaoCursolbl)
+                        .addGap(18, 18, 18)
+                        .addComponent(addDescricaoCursoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(addCursoConfirmaBtn)
-                        .addGap(198, 198, 198)
-                        .addComponent(addCursoCancelaBtn))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(addDescricaoCursolbl)
-                            .addGap(18, 18, 18)
-                            .addComponent(addDescricaoCursoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addCursoConfirmaBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addCursoCancelaBtn))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -118,10 +117,13 @@ public class AdicionarCurso extends javax.swing.JFrame {
 
     private void addCursoConfirmaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCursoConfirmaBtnActionPerformed
         // TODO add your handling code here:
+  
         String descricao = addDescricaoCursoTxt.getText();
         String ementa = addDescricaoCursoTxtArea.getText();
         
-        if(descricao != null && !descricao.equals("")){
+        boolean eValido = Validacao.validaSeEstaVazio(descricao);
+        
+        if(eValido == true){
 
         CursoDAO cursoDAO = new CursoDAO(GerenciadorConexao.connect());
         boolean sucesso = cursoDAO.adicionaCurso(descricao, ementa);
@@ -166,6 +168,7 @@ public class AdicionarCurso extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new AdicionarCurso().setVisible(true);
             }
