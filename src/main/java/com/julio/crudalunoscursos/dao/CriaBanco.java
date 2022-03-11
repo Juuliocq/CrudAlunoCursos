@@ -4,6 +4,7 @@
  */
 package com.julio.crudalunoscursos.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -12,8 +13,14 @@ import java.sql.Statement;
  * @author julio
  */
 public class CriaBanco {
+    
+    private Connection conn;
+    
+    public CriaBanco(Connection conexao){
+    conn = conexao;
+            }
 
-    public static void criaBanco() {
+    public void criaBanco() {
         String queryAluno = "CREATE TABLE IF NOT EXISTS Aluno ("
                 + "codigo INT NOT NULL AUTO_INCREMENT,"
                 + "nome VARCHAR(50),"
@@ -33,7 +40,7 @@ public class CriaBanco {
                 + "FOREIGN KEY (codigo_aluno) REFERENCES Aluno(codigo),"
                 + "FOREIGN KEY (codigo_curso) REFERENCES Curso(codigo));";
 
-        try ( Statement stmt = GerenciadorConexao.connect().createStatement()) {
+        try ( Statement stmt = conn.createStatement()) {
             stmt.execute(queryAluno);
             stmt.execute(queryCurso);
             stmt.execute(queryCursoAluno);
@@ -44,5 +51,15 @@ public class CriaBanco {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        
+        
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
     }
 }

@@ -8,25 +8,16 @@ package com.julio.crudalunoscursos.model;
  *
  * @author julio
  */
-public class Aluno {
+public class AlunoCurso {
 
     private int codigo;
-    private String nome;
+    private int aluno;
+    private int curso;
 
-    Aluno() {
-    }
-
-    Aluno(int codigo, String nome) {
+    public AlunoCurso(int codigo, int aluno, int curso) {
         this.codigo = codigo;
-        this.nome = nome;
-    }
-
-    Aluno(int codigo) {
-        this.codigo = codigo;
-    }
-
-    Aluno(String nome) {
-        this.nome = nome;
+        this.aluno = aluno;
+        this.curso = curso;
     }
 
     public int getCodigo() {
@@ -37,12 +28,20 @@ public class Aluno {
         this.codigo = codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public int getAluno() {
+        return aluno;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setAluno(int aluno) {
+        this.aluno = aluno;
+    }
+
+    public int getCurso() {
+        return curso;
+    }
+
+    public void setCurso(int curso) {
+        this.curso = curso;
     }
 
 }

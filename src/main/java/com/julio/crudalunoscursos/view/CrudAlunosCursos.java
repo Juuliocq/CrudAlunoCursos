@@ -5,6 +5,7 @@
 package com.julio.crudalunoscursos.view;
 
 import com.julio.crudalunoscursos.dao.CriaBanco;
+import com.julio.crudalunoscursos.dao.GerenciadorConexao;
 
 /**
  *
@@ -38,6 +39,11 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         setLocationByPlatform(true);
 
         addAlunoBtn.setText("Adicionar Aluno");
+        addAlunoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAlunoBtnActionPerformed(evt);
+            }
+        });
 
         addCursoBtn.setText("Adicionar Curso");
 
@@ -82,6 +88,14 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addAlunoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlunoBtnActionPerformed
+        // TODO add your handling code here:
+        AdicionarAluno addAluno = new AdicionarAluno();
+        
+        addAluno.setVisible(rootPaneCheckingEnabled);
+        
+    }//GEN-LAST:event_addAlunoBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -111,7 +125,8 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         //</editor-fold>
         
         /*Cria a estrutura do banco de dados*/
-        CriaBanco.criaBanco();
+        CriaBanco criaBanco = new CriaBanco(GerenciadorConexao.connect());
+        criaBanco.criaBanco();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
