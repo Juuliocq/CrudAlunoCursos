@@ -4,6 +4,10 @@
  */
 package com.julio.crudalunoscursos.view;
 
+import com.julio.crudalunoscursos.dao.AlunoDAO;
+import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author julio
@@ -27,7 +31,7 @@ public class AdicionarAluno extends javax.swing.JFrame {
     private void initComponents() {
 
         javax.swing.JLabel addNomeAlunolbl = new javax.swing.JLabel();
-        javax.swing.JTextField addNomeAlunoTxt = new javax.swing.JTextField();
+        addNomeAlunoTxt = new javax.swing.JTextField();
         javax.swing.JButton addAlunoConfirmaBtn = new javax.swing.JButton();
         javax.swing.JButton addAlunoCancelaBtn = new javax.swing.JButton();
 
@@ -36,9 +40,12 @@ public class AdicionarAluno extends javax.swing.JFrame {
 
         addNomeAlunolbl.setText("Nome: ");
 
-        addNomeAlunoTxt.setText("Digite o nome do aluno:"); // NOI18N
-
         addAlunoConfirmaBtn.setText("Adicionar");
+        addAlunoConfirmaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAlunoConfirmaBtnActionPerformed(evt);
+            }
+        });
 
         addAlunoCancelaBtn.setText("Cancelar");
 
@@ -76,6 +83,21 @@ public class AdicionarAluno extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addAlunoConfirmaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlunoConfirmaBtnActionPerformed
+        // TODO add your handling code here:
+
+        String nome = addNomeAlunoTxt.getText();
+        AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
+        boolean sucesso = alunoDAO.adicionaAluno(nome);
+
+        if (sucesso == true) {
+            JOptionPane.showMessageDialog(null, "O aluno " + nome + " foi cadastrado com sucesso!");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "houve um erro ao cadastrar o aluno " + nome);
+        }
+    }//GEN-LAST:event_addAlunoConfirmaBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -112,5 +134,6 @@ public class AdicionarAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    javax.swing.JTextField addNomeAlunoTxt;
     // End of variables declaration//GEN-END:variables
 }

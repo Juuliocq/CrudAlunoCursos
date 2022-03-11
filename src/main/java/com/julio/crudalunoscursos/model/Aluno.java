@@ -13,19 +13,19 @@ public class Aluno {
     private int codigo;
     private String nome;
 
-    Aluno() {
+    public Aluno() {
     }
 
-    Aluno(int codigo, String nome) {
+    public Aluno(int codigo, String nome) {
         this.codigo = codigo;
         this.nome = nome;
     }
 
-    Aluno(int codigo) {
+    public Aluno(int codigo) {
         this.codigo = codigo;
     }
 
-    Aluno(String nome) {
+    public Aluno(String nome) {
         this.nome = nome;
     }
 
