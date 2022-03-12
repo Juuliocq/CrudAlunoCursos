@@ -6,6 +6,7 @@ package com.julio.crudalunoscursos.view;
 
 import com.julio.crudalunoscursos.dao.AlunoDAO;
 import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.validation.Alertas;
 import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
 
@@ -37,7 +38,7 @@ public class AdicionarAluno extends javax.swing.JFrame {
         javax.swing.JButton addAlunoCancelaBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("AdicionarAluno");
+        setTitle("Adicionar Aluno");
 
         addNomeAlunolbl.setText("Nome: ");
 
@@ -101,14 +102,8 @@ public class AdicionarAluno extends javax.swing.JFrame {
         AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         boolean sucesso = alunoDAO.adicionaAluno(nome);
 
-        if (sucesso == true) {
-            JOptionPane.showMessageDialog(null, "O aluno " + nome + " foi cadastrado com sucesso!");
-            
-            dispose();
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "houve um erro ao cadastrar o aluno " + nome);
-        }
+        Alertas.alertaAdicionarAluno(sucesso, nome);
+        dispose();
         
         } else {
             JOptionPane.showMessageDialog(null, "O nome está vazio! Insira um nome válido.");

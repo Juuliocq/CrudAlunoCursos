@@ -60,6 +60,11 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         });
 
         verCursoBtn.setText("Ver Cursos");
+        verCursoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verCursoBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,7 +107,7 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdicionarAluno addAluno = new AdicionarAluno();
         
-        addAluno.setVisible(rootPaneCheckingEnabled);
+        addAluno.setVisible(true);
         
     }//GEN-LAST:event_addAlunoBtnActionPerformed
 
@@ -110,15 +115,22 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdicionarCurso adicionarCurso = new AdicionarCurso();
         
-        adicionarCurso.setVisible(rootPaneCheckingEnabled);
+        adicionarCurso.setVisible(true);
     }//GEN-LAST:event_addCursoBtnActionPerformed
 
     private void verAlunoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAlunoBtnActionPerformed
         // TODO add your handling code here:
         VerAlunos verAlunos = new VerAlunos();
         
-        verAlunos.setVisible(rootPaneCheckingEnabled);
+        verAlunos.setVisible(true);
     }//GEN-LAST:event_verAlunoBtnActionPerformed
+
+    private void verCursoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCursoBtnActionPerformed
+        // TODO add your handling code here:
+        VerCursos verCursos = new VerCursos();
+        
+        verCursos.setVisible(true);
+    }//GEN-LAST:event_verCursoBtnActionPerformed
 
     /**
      * @param args the command line arguments

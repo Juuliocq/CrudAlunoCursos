@@ -12,7 +12,7 @@ public class Validacao {
 
     public static boolean validaSeEstaVazio(String txt) {
         
-        boolean eValido = !(txt.equals("") || txt == null);
+        boolean eValido = !(txt == null || txt.equals(""));
         
         return eValido;
     }

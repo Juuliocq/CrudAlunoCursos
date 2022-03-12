@@ -14,7 +14,10 @@ public class Curso {
     private String descricao;
     private String ementa;
 
-    public Curso() {
+    public Curso() {}
+    
+    public Curso(int codigo){
+        this.codigo = codigo;
     }
 
     public Curso(String descricao, String ementa) {

@@ -21,25 +21,24 @@ public class CriaBanco {
     }
 
     public void criaBanco() {
-        try {
-            PreparedStatement queryAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Aluno ("
-                    + "codigo INT NOT NULL AUTO_INCREMENT,"
-                    + "nome VARCHAR(50),"
-                    + "PRIMARY KEY (codigo));");
-
-            PreparedStatement queryCurso = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Curso ("
-                    + "codigo INT NOT NULL AUTO_INCREMENT, "
-                    + "descricao VARCHAR(50), "
-                    + "ementa TEXT, "
-                    + "PRIMARY KEY (codigo))");
-
-            PreparedStatement queryCursoAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS CursoAluno ("
-                    + "codigo INT NOT NULL AUTO_INCREMENT,"
-                    + "codigo_aluno INT,"
-                    + "codigo_curso INT,"
-                    + "PRIMARY KEY (codigo),"
-                    + "FOREIGN KEY (codigo_aluno) REFERENCES Aluno(codigo),"
-                    + "FOREIGN KEY (codigo_curso) REFERENCES Curso(codigo));");
+        try ( PreparedStatement queryAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS aluno ("
+                + "codigo INT NOT NULL AUTO_INCREMENT,"
+                + "nome VARCHAR(50),"
+                + "PRIMARY KEY (codigo));");
+                
+                PreparedStatement queryCurso = conn.prepareStatement("CREATE TABLE IF NOT EXISTS curso ("
+                + "codigo INT NOT NULL AUTO_INCREMENT, "
+                + "descricao VARCHAR(50), "
+                + "ementa TEXT, "
+                + "PRIMARY KEY (codigo))");
+                
+                PreparedStatement queryCursoAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS curso_aluno ("
+                + "codigo INT NOT NULL AUTO_INCREMENT,"
+                + "codigo_aluno INT,"
+                + "codigo_curso INT,"
+                + "PRIMARY KEY (codigo),"
+                + "FOREIGN KEY (codigo_aluno) REFERENCES aluno(codigo),"
+                + "FOREIGN KEY (codigo_curso) REFERENCES curso(codigo));");) {
 
             queryAluno.execute();
             queryCurso.execute();

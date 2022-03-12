@@ -6,11 +6,9 @@ package com.julio.crudalunoscursos.view;
 
 import com.julio.crudalunoscursos.dao.AlunoDAO;
 import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.validation.Alertas;
 import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -29,15 +27,13 @@ public final class VerAlunos extends javax.swing.JFrame {
     public VerAlunos() {
         initComponents();
 
-        DefaultTableModel modelo = (DefaultTableModel) verAlunosTbl.getModel();
-        verAlunosTbl.setRowSorter(new TableRowSorter(modelo));
-
         retornaTabelaAlunos();
     }
 
     public void retornaTabelaAlunos() {
         
         DefaultTableModel modelo = (DefaultTableModel) verAlunosTbl.getModel();
+        verAlunosTbl.setRowSorter(new TableRowSorter(modelo));
         
         modelo.setRowCount(0);
         
@@ -60,12 +56,14 @@ public final class VerAlunos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane verAlunosTblScroll = new javax.swing.JScrollPane();
         verAlunosTbl = new javax.swing.JTable();
         verAlunosNomeTxt = new javax.swing.JTextField();
         verAlunosAlterarBtn = new javax.swing.JButton();
         verAlunosDeletarBtn = new javax.swing.JButton();
         verAlunosSalvarBtn = new javax.swing.JButton();
+        javax.swing.JButton verAlunosVoltarBtn = new javax.swing.JButton();
+        javax.swing.JLabel verAlunosNomeLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Visualizar Alunos");
@@ -96,12 +94,7 @@ public final class VerAlunos extends javax.swing.JFrame {
             verAlunosTblMouseClicked(evt);
         }
     });
-    jScrollPane1.setViewportView(verAlunosTbl);
-    if (verAlunosTbl.getColumnModel().getColumnCount() > 0) {
-        verAlunosTbl.getColumnModel().getColumn(0).setResizable(false);
-        verAlunosTbl.getColumnModel().getColumn(0).setPreferredWidth(1);
-        verAlunosTbl.getColumnModel().getColumn(1).setResizable(false);
-    }
+    verAlunosTblScroll.setViewportView(verAlunosTbl);
 
     verAlunosNomeTxt.setEditable(false);
 
@@ -129,27 +122,37 @@ public final class VerAlunos extends javax.swing.JFrame {
         }
     });
 
+    verAlunosVoltarBtn.setText("Voltar");
+    verAlunosVoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            verAlunosVoltarBtnActionPerformed(evt);
+        }
+    });
+
+    verAlunosNomeLbl.setText("Nome:");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(18, 18, 18)
+                    .addComponent(verAlunosNomeLbl)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(verAlunosAlterarBtn)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(verAlunosSalvarBtn)))
-                    .addContainerGap())
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(verAlunosAlterarBtn)
+                        .addComponent(verAlunosSalvarBtn))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(verAlunosDeletarBtn)
-                    .addGap(126, 126, 126))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
+            .addContainerGap())
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,17 +160,19 @@ public final class VerAlunos extends javax.swing.JFrame {
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addContainerGap())
-                .addGroup(layout.createSequentialGroup()
+                    .addComponent(verAlunosNomeLbl)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(65, 65, 65)
+                    .addGap(41, 41, 41)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(verAlunosAlterarBtn)
-                        .addComponent(verAlunosSalvarBtn))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
-                    .addComponent(verAlunosDeletarBtn)
-                    .addGap(60, 60, 60))))
+                        .addComponent(verAlunosAlterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(verAlunosSalvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addContainerGap())
     );
 
     pack();
@@ -203,9 +208,6 @@ public final class VerAlunos extends javax.swing.JFrame {
     private void verAlunosSalvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAlunosSalvarBtnActionPerformed
         // TODO add your handling code here:
         
-        verAlunosSalvarBtn.setEnabled(false);
-        verAlunosDeletarBtn.setEnabled(false);
-        
         String nome = verAlunosNomeTxt.getText();
         boolean eValido = Validacao.validaSeEstaVazio(nome);
         
@@ -214,16 +216,16 @@ public final class VerAlunos extends javax.swing.JFrame {
         AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         boolean sucesso = alunoDAO.alteraAluno(codigoSelecionado, nome);
 
-        if (sucesso == true) {
-            JOptionPane.showMessageDialog(null, "O aluno " + nome + " foi alterado com sucesso!");
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "houve um erro ao alterar o aluno " + nome);
-        }
+        Alertas.alertaAlterarAluno(sucesso, nome);
         
         } else {
             JOptionPane.showMessageDialog(null, "O nome está vazio! Insira um nome válido.");
         }
+        
+        verAlunosNomeTxt.setText("");
+        
+        verAlunosSalvarBtn.setEnabled(false);
+        verAlunosDeletarBtn.setEnabled(false);
         
         retornaTabelaAlunos();
         
@@ -232,20 +234,34 @@ public final class VerAlunos extends javax.swing.JFrame {
     private void verAlunosDeletarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAlunosDeletarBtnActionPerformed
         // TODO add your handling code here:
         
+        int desejaExcluir = JOptionPane.
+                showConfirmDialog(rootPane, "Deseja realmente excluir o aluno " +
+                verAlunosNomeTxt.getText() + "?",
+                "Deseja excluir?",
+                JOptionPane.YES_NO_OPTION);
+        
+        if(desejaExcluir == 0){
+            
         AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         
         String nome = verAlunosNomeTxt.getText();
         boolean sucesso = alunoDAO.excluiAluno(codigoSelecionado);
 
-        if (sucesso == true) {
-            JOptionPane.showMessageDialog(null, "O aluno " + nome + " foi excluido com sucesso!");
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "houve um erro ao excluir o aluno " + nome +".");
-        }
+        Alertas.alertaDeletarAluno(sucesso, nome);
+        
+        verAlunosNomeTxt.setText("");
+        
+        verAlunosAlterarBtn.setEnabled(false);
+        verAlunosDeletarBtn.setEnabled(false);
         
         retornaTabelaAlunos();
+        }
     }//GEN-LAST:event_verAlunosDeletarBtnActionPerformed
+
+    private void verAlunosVoltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAlunosVoltarBtnActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_verAlunosVoltarBtnActionPerformed
         
     /**
      * @param args the command line arguments

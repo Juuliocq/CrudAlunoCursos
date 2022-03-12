@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class AlunoDAO {
 
     private Connection conn;
+    
 
     public AlunoDAO() {
     }
@@ -25,6 +26,7 @@ public class AlunoDAO {
     public AlunoDAO(Connection conn) {
         this.conn = conn;
     }
+    
 
     public boolean adicionaAluno(String nome) {
 
@@ -32,7 +34,7 @@ public class AlunoDAO {
         Aluno aluno = new Aluno(nome);
 
         try ( PreparedStatement queryAddAluno = this.conn
-                .prepareStatement("INSERT INTO Aluno(nome) VALUE (?)");) {
+                .prepareStatement("INSERT INTO aluno(nome) VALUE (?)");) {
 
             queryAddAluno.setString(1, aluno.getNome());
 
@@ -40,11 +42,14 @@ public class AlunoDAO {
             queryAddAluno.close();
 
             sucesso = true;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        
         return sucesso;
     }
+    
 
     public ArrayList<Aluno> buscaTodosOsAlunos() {
 
@@ -52,7 +57,7 @@ public class AlunoDAO {
         ArrayList<Aluno> listaAluno = new ArrayList<>();
 
         try ( PreparedStatement queryBuscaTodosOsAlunos = this.conn
-                .prepareStatement("SELECT * FROM Aluno");) {
+                .prepareStatement("SELECT * FROM aluno");) {
 
             resultSet = queryBuscaTodosOsAlunos.executeQuery();
 
@@ -72,6 +77,7 @@ public class AlunoDAO {
         }
         return listaAluno;
     }
+    
 
     public boolean alteraAluno(int codigo, String nome) {
         
@@ -79,7 +85,7 @@ public class AlunoDAO {
         Aluno aluno = new Aluno(codigo, nome);
 
         try ( PreparedStatement queryAlteraAluno = this.conn
-                .prepareStatement("UPDATE Aluno SET nome = ? WHERE codigo = ?");) {
+                .prepareStatement("UPDATE aluno SET nome = ? WHERE codigo = ?");) {
 
             queryAlteraAluno.setString(1, aluno.getNome());
             queryAlteraAluno.setInt(2, aluno.getCodigo());
@@ -94,23 +100,25 @@ public class AlunoDAO {
         return sucesso;
     }
     
+    
     public boolean excluiAluno(int codigo) {
         
         boolean sucesso = false;
         Aluno aluno = new Aluno(codigo);
 
-        try ( PreparedStatement queryAlteraAluno = this.conn
-                .prepareStatement("DELETE FROM Aluno WHERE codigo = ?");) {
+        try ( PreparedStatement queryDeletaAluno = this.conn
+                .prepareStatement("DELETE FROM aluno WHERE codigo = ?");) {
 
-            queryAlteraAluno.setInt(1, aluno.getCodigo());
+            queryDeletaAluno.setInt(1, aluno.getCodigo());
 
-            queryAlteraAluno.execute();
-            queryAlteraAluno.close();
+            queryDeletaAluno.execute();
+            queryDeletaAluno.close();
 
             sucesso = true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        
         return sucesso;
     }
 }
