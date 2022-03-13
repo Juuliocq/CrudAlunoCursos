@@ -37,13 +37,13 @@
                   <Component id="jScrollPane2" alignment="1" min="-2" pref="382" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="verCursosAlterarBtn" max="32767" attributes="0"/>
+                          <Component id="verCursosAlterarBtn" pref="80" max="32767" attributes="0"/>
                           <Component id="verCursosSalvarBtn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="verCursosVoltarBtn" min="-2" pref="74" max="-2" attributes="0"/>
-                          <Component id="verCursosDeletarBtn" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="verCursosDeletarBtn" pref="82" max="32767" attributes="0"/>
+                          <Component id="verCursosVoltarBtn" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -105,7 +105,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

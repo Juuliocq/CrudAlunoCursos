@@ -9,36 +9,37 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * <b>Classe responsável por criar todas as tabelas no banco de dados.</b>
  *
+ * @version 1.0
  * @author julio
  */
 public class CriaBanco {
 
-    private Connection conn;
-
-    public CriaBanco(Connection conexao) {
-        conn = conexao;
-    }
-
-    public void criaBanco() {
+    /**
+     * <b>Cria todas as tabelas necessárias no banco de dados e retorna sucesso ou
+     * falha no console.</b>
+     * @param conn Connection - Objeto de conexão com banco de dados.
+     */
+    public static void criaBanco(Connection conn) {
         try ( PreparedStatement queryAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS aluno ("
-                + "codigo INT NOT NULL AUTO_INCREMENT,"
-                + "nome VARCHAR(50),"
-                + "PRIMARY KEY (codigo));");
+                        + "codigo INT NOT NULL AUTO_INCREMENT,"
+                        + "nome VARCHAR(50),"
+                        + "PRIMARY KEY (codigo));");
                 
                 PreparedStatement queryCurso = conn.prepareStatement("CREATE TABLE IF NOT EXISTS curso ("
-                + "codigo INT NOT NULL AUTO_INCREMENT, "
-                + "descricao VARCHAR(50), "
-                + "ementa TEXT, "
-                + "PRIMARY KEY (codigo))");
+                        + "codigo INT NOT NULL AUTO_INCREMENT, "
+                        + "descricao VARCHAR(50), "
+                        + "ementa TEXT, "
+                        + "PRIMARY KEY (codigo))");
                 
                 PreparedStatement queryCursoAluno = conn.prepareStatement("CREATE TABLE IF NOT EXISTS curso_aluno ("
-                + "codigo INT NOT NULL AUTO_INCREMENT,"
-                + "codigo_aluno INT,"
-                + "codigo_curso INT,"
-                + "PRIMARY KEY (codigo),"
-                + "FOREIGN KEY (codigo_aluno) REFERENCES aluno(codigo),"
-                + "FOREIGN KEY (codigo_curso) REFERENCES curso(codigo));");) {
+                        + "codigo INT NOT NULL AUTO_INCREMENT,"
+                        + "codigo_aluno INT,"
+                        + "codigo_curso INT,"
+                        + "PRIMARY KEY (codigo),"
+                        + "FOREIGN KEY (codigo_aluno) REFERENCES aluno(codigo),"
+                        + "FOREIGN KEY (codigo_curso) REFERENCES curso(codigo));");) {
 
             queryAluno.execute();
             queryCurso.execute();
@@ -56,13 +57,5 @@ public class CriaBanco {
             System.out.println(e.getMessage());
         }
 
-    }
-
-    public Connection getConn() {
-        return conn;
-    }
-
-    public void setConn(Connection conn) {
-        this.conn = conn;
     }
 }

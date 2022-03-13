@@ -13,21 +13,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * <b>Classe que instancia um objeto de acesso a dados do tipo Aluno.</b>
+ * <p>Contém todas as funções relacionadas a banco de dados para o tipo Aluno.</p>
  *
  * @author julio
+ * @version 1.0
  */
 public class AlunoDAO {
 
-    private Connection conn;
+    /**
+     * <b>Objeto de conexão com o banco de dados.</b>
+     */
+    private final Connection conn;
+
+    /**
+     * <b>Booleano para salvar o status de cada query realizada no banco de dados.</b>
+     */
     boolean sucesso = false;
 
-    public AlunoDAO() {
-    }
-
+    /**
+     * <b>Construtor injetando um objeto de conexão com o banco de dados.</b>
+     *
+     * @param conn Connection
+     */
     public AlunoDAO(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     * <b>Método que adiciona um novo aluno ao banco de dados.</b>
+     * <p>Cria um objeto Aluno, faz a query no banco de dados e retorna um booleano.</p>
+     *
+     * @param nome String - Nome do Aluno
+     * @return boolean Sucesso - booleano que retorna o status da query(V/F).
+     */
     public boolean adicionaAluno(String nome) {
 
         Aluno aluno = new Aluno(nome);
@@ -49,7 +68,14 @@ public class AlunoDAO {
         return sucesso;
     }
 
-    public ArrayList<Aluno> buscaTodosOsAlunos() {
+    /**
+     * <b>Busca todos os alunos no banco de dados.</b> 
+     * <p>Instancia um objeto ResultSet, faz a query no banco de dados e salva o resultado no ResultSet. Com um
+     * laço while salva o ResultSet dentro de um ArrayList do tipo Aluno.</p>
+     *
+     * @return ArrayList listaAluno - Lista de alunos no banco de dados.
+     */
+    public ArrayList<Aluno> buscaTodosAlunos() {
 
         ResultSet resultSet;
         ArrayList<Aluno> listaAluno = new ArrayList<>();
@@ -76,6 +102,14 @@ public class AlunoDAO {
         return listaAluno;
     }
 
+    /**
+     * <b>Método que atualiza um aluno no banco de dados.</b> 
+     * <p>Inicializa um objeto do tipo Aluno e executa a query.</p>
+     *
+     * @param codigo int - Código do aluno a ser atualizado.
+     * @param nome String - Nome atualizado do aluno.
+     * @return Boolean sucesso - Status da query(V/F).
+     */
     public boolean alteraAluno(int codigo, String nome) {
 
         Aluno aluno = new Aluno(codigo, nome);
@@ -91,11 +125,21 @@ public class AlunoDAO {
 
             sucesso = true;
         } catch (SQLException e) {
+
             throw new RuntimeException(e);
         }
         return sucesso;
     }
 
+    /**
+     * <b>Método que exclui um aluno do banco de dados.</b> 
+     * <p>Instancia um objeto do tipo Aluno, executa o método excluirTodosCursosDoAluno()
+     * para limpar a tabela curso_aluno onde codigo_aluno == código do aluno
+     * a ser excluido para evitar exceção de SQL por chave estrangeira e executa a query.</p>
+     *
+     * @param codigo int - Código do Aluno a ser excluido.
+     * @return boolean sucesso - Retorna status da query(V/F).
+     */
     public boolean excluiAluno(int codigo) {
 
         Aluno aluno = new Aluno(codigo);
@@ -106,7 +150,7 @@ public class AlunoDAO {
             queryDeletaAluno.setInt(1, aluno.getCodigo());
 
             excluirTodosCursosDoAluno(aluno.getCodigo());
-            
+
             queryDeletaAluno.execute();
             queryDeletaAluno.close();
 
@@ -118,7 +162,19 @@ public class AlunoDAO {
         return sucesso;
     }
 
-    public Aluno buscaCursosQueAlunoNaoFaz(int codigo) {
+    /**
+     * <b>Busca todos os cursos que não tem correspondência com o aluno recebido
+     * por parâmetro na tabela curso_aluno.</b> 
+     * <p>Instancia um objeto do tipo Aluno,
+     * instancia um objeto ResultSet, faz a query no banco de dados e salva o
+     * resultado no ResultSet. Com um laço while salva o ResultSet dentro de um
+     * ArrayList do tipo Curso. Adiciona o ArrayList de cursos ao objeto Aluno.</p>
+     *
+     * @param codigo int - Código do aluno a ser consultado.
+     * @return aluno Aluno - Objeto Aluno contendo um ArrayList de cursos que
+     * ele não faz.
+     */
+    public Aluno buscaCursosAlunoNaoFaz(int codigo) {
 
         Aluno aluno = new Aluno(codigo);
 
@@ -155,8 +211,20 @@ public class AlunoDAO {
 
         return aluno;
     }
-    
-     public Aluno buscaCursosDoAluno(int codigo) {
+
+    /**
+     * <b>Busca todos os cursos que tem correspondência com o aluno recebido por
+     * parâmetro na tabela curso_aluno.</b> 
+     * <p>Instancia um objeto do tipo Aluno,
+     * instancia um objeto ResultSet, faz a query no banco de dados e salva o
+     * resultado no ResultSet. Com um laço while salva o ResultSet dentro de um
+     * ArrayList do tipo Curso. Adiciona o ArrayList de cursos ao objeto Aluno.</p>
+     *
+     * @param codigo int - Código do aluno a ser consultado.
+     * @return aluno Aluno - Objeto Aluno contendo um ArrayList de cursos que
+     * ele faz.
+     */
+    public Aluno buscaCursosAluno(int codigo) {
 
         Aluno aluno = new Aluno(codigo);
 
@@ -194,45 +262,14 @@ public class AlunoDAO {
         return aluno;
     }
 
-    public void adicionarCursoAoAluno(int codigoAluno, int codigoCurso) {
-
-        Aluno aluno = new Aluno(codigoAluno);
-
-        try ( PreparedStatement queryAdicionaCurso = this.conn
-                .prepareStatement("INSERT INTO curso_aluno(codigo_aluno, codigo_curso) values(?, ?)");) {
-
-            queryAdicionaCurso.setInt(1, aluno.getCodigo());
-            queryAdicionaCurso.setInt(2, codigoCurso);
-
-            queryAdicionaCurso.execute();
-            queryAdicionaCurso.close();
-
-            sucesso = true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    public void excluirCursoDoAluno(int codigoAluno, int codigoCurso) {
-
-        Aluno aluno = new Aluno(codigoAluno);
-
-        try ( PreparedStatement queryExcluiCursoAluno = this.conn
-                .prepareStatement("DELETE FROM curso_aluno WHERE codigo_aluno = ? AND codigo_curso = ?;");) {
-
-            queryExcluiCursoAluno.setInt(1, aluno.getCodigo());
-            queryExcluiCursoAluno.setInt(2, codigoCurso);
-
-            queryExcluiCursoAluno.execute();
-            queryExcluiCursoAluno.close();
-
-            sucesso = true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-        public void excluirTodosCursosDoAluno(int codigoAluno) {
+    /**
+     * <b>Exclui todos os cursos do aluno.</b> 
+     * <p>Instancia um aluno e executa a query.</p>
+     * <p>Usado apenas no método excluiAluno() dessa mesma classe.</p>
+     *
+     * @param codigoAluno int - Código do aluno a ser excluido.
+     */
+    public void excluirTodosCursosDoAluno(int codigoAluno) {
 
         Aluno aluno = new Aluno(codigoAluno);
 
