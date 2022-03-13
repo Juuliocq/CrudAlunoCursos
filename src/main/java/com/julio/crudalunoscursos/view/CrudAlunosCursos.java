@@ -33,6 +33,8 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         javax.swing.JButton addCursoBtn = new javax.swing.JButton();
         javax.swing.JButton verAlunoBtn = new javax.swing.JButton();
         javax.swing.JButton verCursoBtn = new javax.swing.JButton();
+        javax.swing.JButton verCursosAluno = new javax.swing.JButton();
+        javax.swing.JButton jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alunos e Cursos");
@@ -66,24 +68,36 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
             }
         });
 
+        verCursosAluno.setText("Ver Cursos do Aluno");
+        verCursosAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verCursosAlunoActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Ver Alunos do Curso");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(verCursosAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verAlunoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addAlunoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addAlunoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(addCursoBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(verAlunoBtn)
-                        .addGap(44, 44, 44)
-                        .addComponent(verCursoBtn)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(91, 91, 91))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verCursoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addCursoBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,7 +110,11 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(verAlunoBtn)
                     .addComponent(verCursoBtn))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(verCursosAluno)
+                    .addComponent(jButton2))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,6 +149,18 @@ public class CrudAlunosCursos extends javax.swing.JFrame {
         
         verCursos.setVisible(true);
     }//GEN-LAST:event_verCursoBtnActionPerformed
+
+    private void verCursosAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCursosAlunoActionPerformed
+        // TODO add your handling code here:
+        CursosDoAluno cursosDoAluno = new CursosDoAluno();
+        cursosDoAluno.setVisible(true);
+    }//GEN-LAST:event_verCursosAlunoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        AlunosDoCurso alunosDoCurso = new AlunosDoCurso();
+        alunosDoCurso.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

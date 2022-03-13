@@ -4,6 +4,8 @@
  */
 package com.julio.crudalunoscursos.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author julio
@@ -14,9 +16,13 @@ public class Curso {
     private String descricao;
     private String ementa;
 
-    public Curso() {}
-    
-    public Curso(int codigo){
+    private ArrayList<Aluno> listaDeAlunosDentroDoCurso;
+    private ArrayList<Aluno> listaDeAlunosForaDoCurso;
+
+    public Curso() {
+    }
+
+    public Curso(int codigo) {
         this.codigo = codigo;
     }
 
@@ -30,6 +36,13 @@ public class Curso {
         this.descricao = descricao;
         this.ementa = ementa;
     }
+
+    public Curso(int codigo, ArrayList<Aluno> listaDeAlunosDentroDoCurso, ArrayList<Aluno> listaDeAlunosForaDoCurso) {
+        this.codigo = codigo;
+        this.listaDeAlunosDentroDoCurso = listaDeAlunosDentroDoCurso;
+        this.listaDeAlunosForaDoCurso = listaDeAlunosForaDoCurso;
+    }
+    
 
     public int getCodigo() {
         return codigo;
@@ -55,4 +68,21 @@ public class Curso {
         this.ementa = ementa;
     }
 
+    public ArrayList<Aluno> getListaDeAlunosDentroDoCurso() {
+        return listaDeAlunosDentroDoCurso;
+    }
+
+    public void setListaDeAlunosDentroDoCurso(ArrayList<Aluno> listaDeAlunosDentroDoCurso) {
+        this.listaDeAlunosDentroDoCurso = listaDeAlunosDentroDoCurso;
+    }
+
+    public ArrayList<Aluno> getListaDeAlunosForaDoCurso() {
+        return listaDeAlunosForaDoCurso;
+    }
+
+    public void setListaDeAlunosForaDoCurso(ArrayList<Aluno> listaDeAlunosForaDoCurso) {
+        this.listaDeAlunosForaDoCurso = listaDeAlunosForaDoCurso;
+    }
+    
+    
 }

@@ -4,6 +4,8 @@
  */
 package com.julio.crudalunoscursos.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author julio
@@ -11,13 +13,13 @@ package com.julio.crudalunoscursos.model;
 public class AlunoCurso {
 
     private int codigo;
-    private int aluno;
-    private int curso;
+    private ArrayList<Aluno> alunos;
+    private ArrayList<Curso> cursos;
 
-    public AlunoCurso(int codigo, int aluno, int curso) {
+    public AlunoCurso(int codigo, ArrayList<Aluno> alunos, ArrayList<Curso> cursos) {
         this.codigo = codigo;
-        this.aluno = aluno;
-        this.curso = curso;
+        this.alunos = alunos;
+        this.cursos = cursos;
     }
 
     public int getCodigo() {
@@ -28,20 +30,22 @@ public class AlunoCurso {
         this.codigo = codigo;
     }
 
-    public int getAluno() {
-        return aluno;
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
     }
 
-    public void setAluno(int aluno) {
-        this.aluno = aluno;
+    public void setAlunos(ArrayList<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
-    public int getCurso() {
-        return curso;
+    public ArrayList<Curso> getCursos() {
+        return cursos;
     }
 
-    public void setCurso(int curso) {
-        this.curso = curso;
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
     }
+    
+    
 
 }

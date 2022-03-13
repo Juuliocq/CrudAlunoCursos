@@ -4,6 +4,8 @@
  */
 package com.julio.crudalunoscursos.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author julio
@@ -13,12 +15,10 @@ public class Aluno {
     private int codigo;
     private String nome;
 
-    public Aluno() {
-    }
+    private ArrayList<Curso> listaDeCursosDoAluno;
+    private ArrayList<Curso> listaDeCursosQueAlunoNaoFaz;
 
-    public Aluno(int codigo, String nome) {
-        this.codigo = codigo;
-        this.nome = nome;
+    public Aluno() {
     }
 
     public Aluno(int codigo) {
@@ -27,6 +27,17 @@ public class Aluno {
 
     public Aluno(String nome) {
         this.nome = nome;
+    }
+
+    public Aluno(int codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+
+    public Aluno(int codigo, ArrayList<Curso> listaDeCursosDoAluno, ArrayList<Curso> listaDeCursosQueAlunoNaoFaz) {
+        this.codigo = codigo;
+        this.listaDeCursosDoAluno = listaDeCursosDoAluno;
+        this.listaDeCursosQueAlunoNaoFaz = listaDeCursosQueAlunoNaoFaz;
     }
 
     public int getCodigo() {
@@ -45,4 +56,21 @@ public class Aluno {
         this.nome = nome;
     }
 
+    public ArrayList<Curso> getListaDeCursosDoAluno() {
+        return listaDeCursosDoAluno;
+    }
+
+    public void setListaDeCursosDoAluno(ArrayList<Curso> listaDeCursosDoAluno) {
+        this.listaDeCursosDoAluno = listaDeCursosDoAluno;
+    }
+
+    public ArrayList<Curso> getListaDeCursosQueAlunoNaoFaz() {
+        return listaDeCursosQueAlunoNaoFaz;
+    }
+
+    public void setListaDeCursosQueAlunoNaoFaz(ArrayList<Curso> listaDeCursosQueAlunoNaoFaz) {
+        this.listaDeCursosQueAlunoNaoFaz = listaDeCursosQueAlunoNaoFaz;
+    }
+
+    
 }

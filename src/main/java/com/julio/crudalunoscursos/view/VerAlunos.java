@@ -73,7 +73,7 @@ public final class VerAlunos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome"
+                "Codigo", "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -83,100 +83,115 @@ public final class VerAlunos extends javax.swing.JFrame {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
+        });
+        verAlunosTbl.setToolTipText("");
+        verAlunosTbl.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        verAlunosTbl.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        verAlunosTbl.getTableHeader().setReorderingAllowed(false);
+        verAlunosTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                verAlunosTblMouseClicked(evt);
+            }
+        });
+        verAlunosTblScroll.setViewportView(verAlunosTbl);
+        if (verAlunosTbl.getColumnModel().getColumnCount() > 0) {
+            verAlunosTbl.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
-    );
-    verAlunosTbl.setToolTipText("");
-    verAlunosTbl.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-    verAlunosTbl.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-    verAlunosTbl.getTableHeader().setReorderingAllowed(false);
-    verAlunosTbl.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            verAlunosTblMouseClicked(evt);
-        }
-    });
-    verAlunosTblScroll.setViewportView(verAlunosTbl);
 
-    verAlunosNomeTxt.setEditable(false);
+        verAlunosNomeTxt.setEditable(false);
 
-    verAlunosAlterarBtn.setText("Alterar");
-    verAlunosAlterarBtn.setEnabled(false);
-    verAlunosAlterarBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            verAlunosAlterarBtnActionPerformed(evt);
-        }
-    });
+        verAlunosAlterarBtn.setText("Alterar");
+        verAlunosAlterarBtn.setEnabled(false);
+        verAlunosAlterarBtn.setMaximumSize(new java.awt.Dimension(74, 24));
+        verAlunosAlterarBtn.setMinimumSize(new java.awt.Dimension(74, 24));
+        verAlunosAlterarBtn.setPreferredSize(new java.awt.Dimension(74, 24));
+        verAlunosAlterarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verAlunosAlterarBtnActionPerformed(evt);
+            }
+        });
 
-    verAlunosDeletarBtn.setText("Excluir");
-    verAlunosDeletarBtn.setEnabled(false);
-    verAlunosDeletarBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            verAlunosDeletarBtnActionPerformed(evt);
-        }
-    });
+        verAlunosDeletarBtn.setText("Excluir");
+        verAlunosDeletarBtn.setEnabled(false);
+        verAlunosDeletarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verAlunosDeletarBtnActionPerformed(evt);
+            }
+        });
 
-    verAlunosSalvarBtn.setText("Salvar");
-    verAlunosSalvarBtn.setEnabled(false);
-    verAlunosSalvarBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            verAlunosSalvarBtnActionPerformed(evt);
-        }
-    });
+        verAlunosSalvarBtn.setText("Salvar");
+        verAlunosSalvarBtn.setEnabled(false);
+        verAlunosSalvarBtn.setMaximumSize(new java.awt.Dimension(74, 24));
+        verAlunosSalvarBtn.setMinimumSize(new java.awt.Dimension(74, 24));
+        verAlunosSalvarBtn.setPreferredSize(new java.awt.Dimension(74, 24));
+        verAlunosSalvarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verAlunosSalvarBtnActionPerformed(evt);
+            }
+        });
 
-    verAlunosVoltarBtn.setText("Voltar");
-    verAlunosVoltarBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            verAlunosVoltarBtnActionPerformed(evt);
-        }
-    });
+        verAlunosVoltarBtn.setText("Voltar");
+        verAlunosVoltarBtn.setMaximumSize(new java.awt.Dimension(74, 24));
+        verAlunosVoltarBtn.setMinimumSize(new java.awt.Dimension(74, 24));
+        verAlunosVoltarBtn.setPreferredSize(new java.awt.Dimension(74, 24));
+        verAlunosVoltarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verAlunosVoltarBtnActionPerformed(evt);
+            }
+        });
 
-    verAlunosNomeLbl.setText("Nome:");
+        verAlunosNomeLbl.setText("Nome:");
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(verAlunosNomeLbl)
-                    .addGap(0, 0, Short.MAX_VALUE))
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(verAlunosAlterarBtn)
-                        .addComponent(verAlunosSalvarBtn))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
-            .addContainerGap())
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(verAlunosNomeLbl)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(41, 41, 41)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(verAlunosAlterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(verAlunosSalvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addContainerGap())
-    );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(verAlunosNomeLbl)
+                            .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(verAlunosAlterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verAlunosSalvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(verAlunosNomeLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(verAlunosNomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(verAlunosAlterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verAlunosDeletarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(verAlunosVoltarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(verAlunosSalvarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(verAlunosTblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
-    pack();
-    setLocationRelativeTo(null);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void verAlunosTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verAlunosTblMouseClicked
