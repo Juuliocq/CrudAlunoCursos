@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.CursoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.CursoController;
 import com.julio.crudalunoscursos.validation.Alertas;
 import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
@@ -124,8 +119,7 @@ public class AdicionarCurso extends javax.swing.JFrame {
      * <b>Listener botão de adicionar curso.</b>
      * <p>Recupera a descrição da caixa de texto de descrição do curso
      * e ementa do curso, valida a descrição,
-     * faz conexão com o banco de dados,
-     * chama o método de adicionar curso,
+     * chama o método adicionar curso da classe controladora de curso e faz a query,
      * fecha a janela ou retorna alerta de descrição vazia.</p>
      * @param evt 
      */
@@ -138,8 +132,7 @@ public class AdicionarCurso extends javax.swing.JFrame {
 
         if (eValido == true) {
 
-            CursoDAO cursoDAO = new CursoDAO(GerenciadorConexao.connect());
-            boolean sucesso = cursoDAO.adicionaCurso(descricao, ementa);
+            boolean sucesso = CursoController.adicionaCursoController(descricao, ementa);
 
             Alertas.alertaAdicionarCurso(sucesso, descricao);
             dispose();

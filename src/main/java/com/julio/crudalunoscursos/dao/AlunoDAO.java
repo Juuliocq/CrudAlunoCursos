@@ -167,8 +167,9 @@ public class AlunoDAO {
      * por parâmetro na tabela curso_aluno.</b> 
      * <p>Instancia um objeto do tipo Aluno,
      * instancia um objeto ResultSet, faz a query no banco de dados e salva o
-     * resultado no ResultSet. Com um laço while salva o ResultSet dentro de um
-     * ArrayList do tipo Curso. Adiciona o ArrayList de cursos ao objeto Aluno.</p>
+     * resultado no ResultSet, com um laço while salva o ResultSet dentro de um
+     * ArrayList do tipo Curso e 
+     * adiciona o ArrayList de cursos ao objeto Aluno.</p>
      *
      * @param codigo int - Código do aluno a ser consultado.
      * @return aluno Aluno - Objeto Aluno contendo um ArrayList de cursos que

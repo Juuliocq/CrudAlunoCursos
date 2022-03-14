@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.julio.crudalunoscursos.view;
 
 import com.julio.crudalunoscursos.dao.CriaBanco;
@@ -9,6 +5,7 @@ import com.julio.crudalunoscursos.dao.GerenciadorConexao;
 
 /**
  * <b>Frame inicial, com todos os botões iniciais.</b>
+ * <p>Para o funcionamento correto, as configurações do banco MySQL devem ser feitas na classe dao.GerenciadorConexao.</p>
  * @version 1.0
  * @author julio
  */

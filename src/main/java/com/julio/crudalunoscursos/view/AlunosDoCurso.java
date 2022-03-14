@@ -1,8 +1,9 @@
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.CursoAlunoDAO;
-import com.julio.crudalunoscursos.dao.CursoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.CursoAlunoController;
+import com.julio.crudalunoscursos.controller.CursoController;
+import com.julio.crudalunoscursos.model.Curso;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -37,8 +38,8 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
      * <p>Converte a tabela de cursos em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os cursos do banco de dados e insere na tabela usando o fluxo ForEach.<p>
+     * chama o método de listar todos os cursos da classe controladora de cursos e
+     * e insere na tabela usando o fluxo ForEach.<p>
      */
     public void retornaTabelaCurso() {
 
@@ -47,9 +48,9 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        CursoDAO cursoDao = new CursoDAO(GerenciadorConexao.connect());
+        ArrayList<Curso> listaCurso = CursoController.retornaTodosOsCursosController();
 
-        cursoDao.buscaTodosCursos().forEach(a -> {
+        listaCurso.forEach(a -> {
             modelo.addRow(new Object[]{
                 a.getCodigo(),
                 a.getDescricao(),}
@@ -62,8 +63,7 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
      * <p>Converte a tabela de alunos que fazem o curso em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os alunos que fazem o curso na tabela curso_aluno no banco de dados,
+     * chama o método da classe controladora que retorna os alunos que fazem o curso passado como parâmetro e
      * insere na tabela usando o fluxo ForEach.</p>
      * @param codigo int - Código do curso a set consultado.
      */
@@ -74,11 +74,10 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        CursoDAO cursoDao = new CursoDAO(GerenciadorConexao.connect());
+        Curso curso = CursoController.buscaAlunosDentroDoCursoController(codigo);
 
-        cursoDao.buscaAlunosDentroDoCurso(codigo)
-                .getListaDeAlunosDentroDoCurso()
-                .forEach(a -> {
+        curso.getListaDeAlunosDentroDoCurso()
+              .forEach(a -> {
 
                     modelo.addRow(new Object[]{
                         a.getCodigo(),
@@ -92,8 +91,7 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
      * <p>Converte a tabela de alunos que não fazem o curso em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os alunos que não fazem o curso na tabela curso_aluno no banco de dados,
+     * chama o método da classe controladora que retorna os alunos que não fazem o curso passado como parâmetro e
      * insere na tabela usando o fluxo ForEach.</p>
      * @param codigo int - Código do curso a set consultado.
      */
@@ -106,11 +104,10 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        CursoDAO cursoDao = new CursoDAO(GerenciadorConexao.connect());
+        Curso curso = CursoController.buscaAlunosForaDoCursoController(codigo);
 
-        cursoDao.buscaAlunosForaDoCurso(codigo)
-                .getListaDeAlunosForaDoCurso()
-                .forEach(a -> {
+        curso.getListaDeAlunosForaDoCurso()
+              .forEach(a -> {
 
                     modelo.addRow(new Object[]{
                         a.getCodigo(),
@@ -343,17 +340,14 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
 
     /**
      * <b>Listener do botão de adicionar aluno ao curso.</b>
-     * <p>Cria conexão com o banco de dados,
-     * chama o método para adicionar um registro de curso_aluno baseado nas variáveis codigoAluno e codigoCurso(inicio da classe),
+     * <p>chama o método da camada de controle que adiciona curso/aluno, baseado nas variáveis codigoAluno e codigoCurso(inicio da classe),
      * atualiza as tabelas de aluno,
      * desabilita o botão de adicionar aluno ao curso.</p>
      * @param evt 
      */
     private void addAlunoAoCursoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAlunoAoCursoBtnActionPerformed
 
-        CursoAlunoDAO cursoAlunoDao = new CursoAlunoDAO(GerenciadorConexao.connect());
-
-        cursoAlunoDao.adicionarCursoAluno(codigoAluno, codigoCurso);
+        CursoAlunoController.adicionaCursoAlunoController(codigoAluno, codigoCurso);
 
         retornaTabelaAlunosForaDoCurso(codigoCurso);
         retornaTabelaAlunosDoCurso(codigoCurso);
@@ -403,17 +397,14 @@ public final class AlunosDoCurso extends javax.swing.JFrame {
 
     /**
      * <b>Listener do botão de deletar aluno do curso.</b>
-     * <p>Conecta com o banco de dados, 
-     * chama o método de excluir registro curso_aluno,
+     * <p>chama o método da camada de controle que exclui curso/aluno baseado nas variáveis codigoAluno e codigoCurso(inicio da classe)
      * atualiza a tabela de alunos,
      * desabilita o botão de deletar aluno do curso.</p>
      * @param evt 
      */
     private void deletaAlunoDoCursoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletaAlunoDoCursoBtnActionPerformed
 
-        CursoAlunoDAO cursoAlunoDao = new CursoAlunoDAO(GerenciadorConexao.connect());
-
-        cursoAlunoDao.excluirCursoAluno(codigoAluno, codigoCurso);
+        CursoAlunoController.excluiCursoAlunoController(codigoAluno, codigoCurso);
 
         retornaTabelaAlunosForaDoCurso(codigoCurso);
         retornaTabelaAlunosDoCurso(codigoCurso);

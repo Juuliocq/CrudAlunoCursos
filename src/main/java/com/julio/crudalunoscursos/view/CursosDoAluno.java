@@ -1,8 +1,9 @@
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.AlunoDAO;
-import com.julio.crudalunoscursos.dao.CursoAlunoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.AlunoController;
+import com.julio.crudalunoscursos.controller.CursoAlunoController;
+import com.julio.crudalunoscursos.model.Aluno;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -36,8 +37,8 @@ public final class CursosDoAluno extends javax.swing.JFrame {
      * <p>Converte a tabela de alunos em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os alunos do banco de dados e insere na tabela usando o fluxo ForEach.</p>
+     * chama o método de listar todos os alunos da classe controladora de alunos
+     * e insere na tabela usando o fluxo ForEach.</p>
      */
     public void retornaTabelaAlunos() {
 
@@ -46,9 +47,9 @@ public final class CursosDoAluno extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        AlunoDAO alunoDao = new AlunoDAO(GerenciadorConexao.connect());
+        ArrayList<Aluno> listaAluno = AlunoController.retornaTodosOsAlunosController();
 
-        alunoDao.buscaTodosAlunos().forEach(a -> {
+        listaAluno.forEach(a -> {
             modelo.addRow(new Object[]{
                 a.getCodigo(),
                 a.getNome(),}
@@ -61,8 +62,7 @@ public final class CursosDoAluno extends javax.swing.JFrame {
      * <p>Converte a tabela de cursos que o aluno faz em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os cursos que o aluno faz na tabela curso_aluno no banco de dados,
+     * chama o método da classe controladora que retorna os cursos que o aluno passado como parâmetro faz e
      * insere na tabela usando o fluxo ForEach.</p>
      * @param codigo int - Código do aluno a set consultado.
      */
@@ -74,10 +74,9 @@ public final class CursosDoAluno extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        AlunoDAO alunoDao = new AlunoDAO(GerenciadorConexao.connect());
+        Aluno aluno = AlunoController.buscaCursosQueOAlunoFazController(codigo);
 
-        alunoDao.buscaCursosAluno(codigo)
-                .getListaDeCursosDoAluno()
+        aluno.getListaDeCursosDoAluno()
                 .forEach(a -> {
 
                     modelo.addRow(new Object[]{
@@ -92,8 +91,7 @@ public final class CursosDoAluno extends javax.swing.JFrame {
      * <p>Converte a tabela de cursos que o aluno não faz em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os que o aluno não faz na tabela curso_aluno no banco de dados,
+     * chama o método da classe controladora que retorna os cursos que o aluno passado como parametro não faz e
      * insere na tabela usando o fluxo ForEach.</p>
      * @param codigo int - Código do curso a set consultado.
      */
@@ -105,11 +103,10 @@ public final class CursosDoAluno extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        AlunoDAO alunoDao = new AlunoDAO(GerenciadorConexao.connect());
+        Aluno aluno = AlunoController.buscaAlunosForaDoCursoController(codigo);
 
-        alunoDao.buscaCursosAlunoNaoFaz(codigo)
-                .getListaDeCursosQueAlunoNaoFaz()
-                .forEach(a -> {
+        aluno.getListaDeCursosQueAlunoNaoFaz()
+             .forEach(a -> {
 
                     modelo.addRow(new Object[]{
                         a.getCodigo(),
@@ -341,17 +338,14 @@ public final class CursosDoAluno extends javax.swing.JFrame {
 
      /**
      * <b>Listener do botão de adicionar curso ao aluno.</b>
-     * <p>Cria conexão com o banco de dados,
-     * chama o método para adicionar um registro de curso_aluno baseado nas variáveis codigoAluno e codigoCurso(inicio da classe),
+     * <p>Chama o método da camada de controle que adiciona curso/aluno baseado nas variáveis codigoAluno e codigoCurso(inicio da classe),
      * atualiza as tabelas de curso,
      * desabilita o botão de adicionar curso ao aluno.</p>
      * @param evt 
      */
     private void addCursoDoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCursoDoAlunoActionPerformed
 
-        CursoAlunoDAO cursoAlunoDao = new CursoAlunoDAO(GerenciadorConexao.connect());
-
-        cursoAlunoDao.adicionarCursoAluno(codigoAluno, codigoCurso);
+        CursoAlunoController.adicionaCursoAlunoController(codigoAluno, codigoCurso);
 
         retornaTabelaCursosQueAlunoNaoFaz(codigoAluno);
         retornaTabelaCursosDoAluno(codigoAluno);
@@ -395,17 +389,14 @@ public final class CursosDoAluno extends javax.swing.JFrame {
 
      /**
      * <b>Listener do botão de deletar curso do aluno.</b>
-     * <p>Conecta com o banco de dados, 
-     * chama o método de excluir registro curso_aluno,
-     * atualiza a tabela de cursos,
+     * <p>Chama o método da camada de controle que exclui curso/aluno baseado na variáveis codigoAluno e codigoCurso(inicio da classe),
+     * atualiza as tabelas de cursos,
      * desabilita o botão de deletar curso do aluno.</p>
      * @param evt 
      */
     private void deletaCursoDoAlunoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletaCursoDoAlunoBtnActionPerformed
 
-        CursoAlunoDAO cursoAlunoDao = new CursoAlunoDAO(GerenciadorConexao.connect());
-
-        cursoAlunoDao.excluirCursoAluno(codigoAluno, codigoCurso);
+        CursoAlunoController.excluiCursoAlunoController(codigoAluno, codigoCurso);
 
         retornaTabelaCursosQueAlunoNaoFaz(codigoAluno);
         retornaTabelaCursosDoAluno(codigoAluno);

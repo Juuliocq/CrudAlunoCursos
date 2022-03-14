@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.AlunoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.AlunoController;
+import com.julio.crudalunoscursos.model.Aluno;
 import com.julio.crudalunoscursos.validation.Alertas;
 import static com.julio.crudalunoscursos.validation.Alertas.alertaDesejaDeletarAluno;
 import com.julio.crudalunoscursos.validation.Validacao;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -39,8 +36,8 @@ public final class VerAlunos extends javax.swing.JFrame {
      * <p>Converte a tabela de alunos em um modelo de tabela padrão,
      * adiciona a ordenação na tabela,
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas,
-     * conecta com o banco de dados,
-     * busca todos os alunos do banco de dados e insere na tabela usando o fluxo ForEach.</p>
+     * chama o método de recuperar todos os alunos da camada de controle e
+     * e insere na tabela usando o fluxo ForEach.</p>
      */
     public void retornaTabelaAlunos() {
         
@@ -49,9 +46,9 @@ public final class VerAlunos extends javax.swing.JFrame {
         
         modelo.setRowCount(0);
         
-        AlunoDAO alunoDao = new AlunoDAO(GerenciadorConexao.connect());
+        ArrayList<Aluno> listaAluno = AlunoController.retornaTodosOsAlunosController();
 
-        alunoDao.buscaTodosAlunos().forEach(a -> {
+        listaAluno.forEach(a -> {
             modelo.addRow(new Object[]{
                 a.getCodigo(),
                 a.getNome(),}
@@ -255,7 +252,8 @@ public final class VerAlunos extends javax.swing.JFrame {
      * <b>Listener do botão de salvar aluno.</b>
      * <p>Atribui a variável nome o texto do campo de nome do aluno,
      * chama o método de validação para ver se nome != "" ou nulo,
-     * se for válido, conecta ao banco de dados e salva o status (V/F) na variável booleana sucesso,
+     * se for válido, chama o método de alterar aluno da camada de controle e
+     * salva o status (V/F) na variável booleana sucesso,
      * chama o alerta de sucesso ao alterar o aluno,
      * se não for válido, exibe um ShowMessageDialog falando que o nome é vazio,
      * limpa o campo de nome do aluno,
@@ -270,8 +268,7 @@ public final class VerAlunos extends javax.swing.JFrame {
         
         if(eValido == true){
             
-        AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
-        boolean sucesso = alunoDAO.alteraAluno(codigoSelecionado, nome);
+        boolean sucesso = AlunoController.alteraAlunoController(codigoSelecionado, nome);
 
         Alertas.alertaAlterarAluno(sucesso, nome);
         
@@ -292,8 +289,8 @@ public final class VerAlunos extends javax.swing.JFrame {
      * <b>Listener do botão de deletar aluno.</b>
      * <p>Atribui a variável nome o texto do campo de nome do aluno,
      * chama o alerta para verificar se quer realmente excluir o aluno,
-     * se sim, conecta ao banco de dados, se não, não faz nada
-     * executa o método de deletar aluno e salva o status na variável booleana sucesso,
+     * se sim, chama o método de excluir aluno da camada de controle e, se não, não faz nada,
+     * salva o status na variável booleana sucesso,
      * exibe o alerta indicando o status da query,
      * limpa o campo de nome do aluno,
      * desabilita os botões de alterar e deletar aluno.
@@ -307,10 +304,8 @@ public final class VerAlunos extends javax.swing.JFrame {
         int desejaExcluir = alertaDesejaDeletarAluno(nome);
         
         if(desejaExcluir == 0){
-            
-        AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
         
-        boolean sucesso = alunoDAO.excluiAluno(codigoSelecionado);
+        boolean sucesso = AlunoController.deletaAlunoController(codigoSelecionado);
 
         Alertas.alertaDeletarAluno(sucesso, nome);
         

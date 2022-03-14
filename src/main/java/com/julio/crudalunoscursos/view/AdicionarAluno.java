@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.AlunoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.AlunoController;
 import com.julio.crudalunoscursos.validation.Alertas;
 import com.julio.crudalunoscursos.validation.Validacao;
 import javax.swing.JOptionPane;
@@ -93,8 +88,7 @@ public class AdicionarAluno extends javax.swing.JFrame {
      * <b>Listener botão de adicionar aluno.</b>
      * <p>Recupera o nome da caixa de texto do nome do aluno,
      * valida o nome,
-     * faz conexão com o banco de dados,
-     * chama o método de adicionar aluno,
+     * chama o método adicionar aluno da classe controladora de aluno e faz a query,
      * fecha a janela ou retorna alerta de nome vazio.</p>
      * @param evt 
      */
@@ -106,8 +100,7 @@ public class AdicionarAluno extends javax.swing.JFrame {
 
         if (eValido == true) {
 
-            AlunoDAO alunoDAO = new AlunoDAO(GerenciadorConexao.connect());
-            boolean sucesso = alunoDAO.adicionaAluno(nome);
+            boolean sucesso = AlunoController.adicionaAlunoController(nome);
 
             Alertas.alertaAdicionarAluno(sucesso, nome);
             

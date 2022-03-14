@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.julio.crudalunoscursos.view;
 
-import com.julio.crudalunoscursos.dao.CursoDAO;
-import com.julio.crudalunoscursos.dao.GerenciadorConexao;
+import com.julio.crudalunoscursos.controller.CursoController;
+import com.julio.crudalunoscursos.model.Curso;
 import com.julio.crudalunoscursos.validation.Alertas;
 import static com.julio.crudalunoscursos.validation.Alertas.alertaDesejaDeletarCurso;
 import com.julio.crudalunoscursos.validation.Validacao;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -39,8 +36,8 @@ public final class VerCursos extends javax.swing.JFrame {
      * <p>Converte a tabela de cursos em um modelo de tabela padrão, 
      * adiciona a ordenação na tabela, 
      * reseta a quantidade de linhas da tabela para não mostrar linhas duplicadas, 
-     * conecta com o banco de dados, 
-     * busca todos os cursos do banco de dados e insere na tabela usando o fluxo ForEach.</p>
+     * chama o método de listar todos os cursos da camada controladora de cursos e
+     * e insere na tabela usando o fluxo ForEach.</p>
      */
     public void retornaTabelaCursos() {
 
@@ -50,9 +47,9 @@ public final class VerCursos extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
 
-        CursoDAO cursoDao = new CursoDAO(GerenciadorConexao.connect());
+        ArrayList<Curso> listaCurso = CursoController.retornaTodosOsCursosController();
 
-        cursoDao.buscaTodosCursos().forEach(a -> {
+        listaCurso.forEach(a -> {
             modelo.addRow(new Object[]{
                 a.getCodigo(),
                 a.getDescricao(),
@@ -217,7 +214,7 @@ public final class VerCursos extends javax.swing.JFrame {
      /**
      * <b>Listener da tabela de cursos, click do mouse.</b>
      * <p>Transforma a tabela em um modelo padrão de tabela, 
-     * atribui à variável codigoTblString o codigo do curso clicado na tabela, 
+     * atribui à variável codigoString o codigo do curso clicado na tabela, 
      * converte em int e salva na variável codigoSelecionado(inicio da classe), 
      * atribui à variável descricaoString a descricao do curso clicado na tabela, 
      * atribui ao campo de descricao o texto da variável descricaoString, 
@@ -232,9 +229,9 @@ public final class VerCursos extends javax.swing.JFrame {
 
         DefaultTableModel modeloTbl = (DefaultTableModel) verCursosTbl.getModel();
 
-        String codigoTblString = modeloTbl.getValueAt(verCursosTbl.getSelectedRow(), 0)
+        String codigoString = modeloTbl.getValueAt(verCursosTbl.getSelectedRow(), 0)
                                  .toString();
-        codigoSelecionado = Integer.parseInt(codigoTblString);
+        codigoSelecionado = Integer.parseInt(codigoString);
 
         String descricaoString = modeloTbl.getValueAt(verCursosTbl.getSelectedRow(), 1)
                                  .toString();
@@ -276,7 +273,8 @@ public final class VerCursos extends javax.swing.JFrame {
      * <b>Listener do botão de salvar curso.</b>
      * <p>Atribui a variável descricao e ementa o texto do campo de descricao e ementa do curso, 
      * chama o método de validação para ver se descricao != "" ou nulo, 
-     * se for válido, conecta ao banco de dados e salva o status (V/F) na variável booleana sucesso, 
+     * se for válido, chama o método de alterar curso da camada de controle
+     * e salva o status (V/F) na variável booleana sucesso, 
      * chama o alerta de sucesso ao alterar o curso, 
      * se não for válido, exibe um ShowMessageDialog falando que a descrição é vazia, 
      * limpa o campo de descrição e ementa do curso, 
@@ -293,8 +291,7 @@ public final class VerCursos extends javax.swing.JFrame {
 
         if (eValido == true) {
 
-            CursoDAO cursoDAO = new CursoDAO(GerenciadorConexao.connect());
-            boolean sucesso = cursoDAO.alteraCurso(codigoSelecionado, descricao, ementa);
+            boolean sucesso = CursoController.alteraCursoController(codigoSelecionado, descricao, ementa);
 
             Alertas.alertaAlterarCurso(sucesso, descricao);
 
@@ -317,7 +314,8 @@ public final class VerCursos extends javax.swing.JFrame {
      * <p>Atribui a variável descricao o texto do campo de descrição do curso, 
      * chama o alerta para verificar se quer realmente excluir o curso, 
      * se sim, conecta ao banco de dados, se não, não faz nada, 
-     * executa o método de deletar curso e salva o status na variável booleana sucesso, 
+     * chama o método de excluir curso da classe controladora de curso
+     * e salva o status na variável booleana sucesso, 
      * exibe o alerta indicando o status da query, 
      * limpa o campo de descrição e ementa do curso, 
      * desabilita os botões de alterar e deletar curso
@@ -331,10 +329,8 @@ public final class VerCursos extends javax.swing.JFrame {
         int desejaExcluir = alertaDesejaDeletarCurso(descricao);
         
         if(desejaExcluir == 0){
-        
-        CursoDAO cursoDAO = new CursoDAO(GerenciadorConexao.connect());
 
-        boolean sucesso = cursoDAO.excluiCurso(codigoSelecionado);
+        boolean sucesso = CursoController.excluiCursoController(codigoSelecionado);
 
         Alertas.alertaDeletarCurso(sucesso, descricao);
         

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.julio.crudalunoscursos.dao;
 
 import com.julio.crudalunoscursos.model.Aluno;
@@ -23,6 +19,10 @@ public class CursoAlunoDAO {
      */
     private final Connection conn;
 
+    /**
+     * Construtor injetando um objeto de conexão com o banco de dados.
+     * @param conn 
+     */
     public CursoAlunoDAO(Connection conn) {
         this.conn = conn;
     }
